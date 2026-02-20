@@ -25,9 +25,35 @@
 //Return value (int*): the output digits array.
 //Output parameter (returnSize): set *returnSize to the number of digits in the returned array.
 
+#include "Student.h"
+#include <stdlib.h>
+
 int* plusOne(int* digits, int digitsSize, int* returnSize) {
-    // TODO: implement
 
+    int* arr = malloc((digitsSize + 1) * sizeof(int));
+    for (int k = 0; k < digitsSize; k++) {
+        arr[k] = digits[k];
+    }
+
+    int i = digitsSize - 1;
     
-}
+    while (i >= 0 && arr[i] == 9) {
+        arr[i] = 0;
+        i--;
+    }
 
+    if (i >= 0) {
+        arr[i] += 1;
+        *returnSize = digitsSize;
+        return arr;
+    }
+    else {
+        
+        arr[0] = 1;
+        for (int j = 1; j <= digitsSize; j++) {
+            arr[j] = 0;
+        }
+        *returnSize = digitsSize + 1;
+        return arr;
+    }
+}
