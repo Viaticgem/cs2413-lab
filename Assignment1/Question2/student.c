@@ -15,8 +15,23 @@
 
 
 int majorityElement(int* nums, int numsSize) {
-     // TODO: implement
+    int n = numsSize;
+    int i, j;
+    int max = nums[0];   // Initialize to first element
+    int amount;
 
+    for (i = 0; i < n; i++) {
+        amount = 1;      // Count nums[i] itself
+        for (j = i + 1; j < n; j++) {
+            if (nums[i] == nums[j]) {
+                amount++;
+            }
+        }
+        if (amount > n / 2) {
+            max = nums[i];
+            break;       // Majority element found, can exit early
+        }
+    }
 
-
+    return max;
 }
