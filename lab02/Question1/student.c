@@ -30,30 +30,47 @@
 #include <string.h>  // strlen
 
 bool isValid(const char *s) {
-    // TODO: Implement using a stack.
-    //
-    // Recommended approach:
-    // - Use a char array as a stack to store opening brackets.
-    // - Scan the string from left to right:
-    //   - If you see an opening bracket, push it.
-    //   - If you see a closing bracket:
-    //       * stack must not be empty
-    //       * top of stack must match the closing bracket type
-    //       * then pop
-    // - At the end, stack must be empty.
-    //
-    // Helpful matching pairs:
-    //   ')' matches '('
-    //   ']' matches '['
-    //   '}' matches '{'
-    //
-    // Corner cases:
-    // - s == NULL -> return false
-    // - odd length strings can’t be valid 
-    //
-    // Note:
-    // - Input contains only bracket characters, per the prompt.
+    size_t len = strlen(s);
 
-    (void)s; // remove after implementing
-    return false; // placeholder
+    // needs even
+    if (len % 2 != 0) {
+        return false;
+    }
+
+    // Empty string is valid
+    if (len == 0) {
+        return true;
+    }
+
+    // Create stack (max size = length of string)
+    char stack[len];
+    int top = -1;  // stack is empty when top == -1
+
+    for (size_t i = 0; i < len; i++) {
+        char c = s[i];
+
+        // If opening bracket → push
+        if (c == '(' || c == '[' || c == '{') {
+            stack[++top] = c;
+        }
+        // If closing bracket → check match
+        else {
+            // Stack must not be empty
+            if (top == -1) {
+                return false;
+            }
+
+            char open = stack[top--];  // pop
+
+            // Check matching pair
+            if ((c == ')' && open != '(') ||
+                (c == ']' && open != '[') ||
+                (c == '}' && open != '{')) {
+                return false;
+            }
+        }
+    }
+
+    // Stack must be empty at the end
+    return (top == -1);
 }
