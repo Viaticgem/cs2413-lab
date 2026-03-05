@@ -14,5 +14,13 @@
 
 int middleNodeValue(struct ListNode *head) {
     // TODO: implement
+    struct ListNode *slow = head;
+    struct ListNode *fast = head;
 
+    while (fast != NULL && fast->next != NULL) {
+        slow = slow->next;          // move 1 step
+        fast = fast->next->next;    // move 2 steps
+    }
+    //returns the val that slow is at
+    return slow->val;
 }
