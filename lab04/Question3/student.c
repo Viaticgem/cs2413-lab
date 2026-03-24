@@ -56,6 +56,21 @@ struct TreeNode {
 };
 
 
+
+int dfs(struct TreeNode* node, int current) {
+    if (node == NULL) {return 0;}
+    // Build the number so far
+    current = current * 10 + node->val;
+
+    // If it's a leaf, return the number
+    if (node->left == NULL && node->right == NULL) { return current;}
+
+    // Otherwise, sum left and right paths
+    return dfs(node->left, current) + dfs(node->right, current);
+}
+
 int sumNumbers(struct TreeNode* root) {
-      // TODO: implement
+    if (root == NULL) {return 0;}
+    
+    return dfs(root, 0);
 }
