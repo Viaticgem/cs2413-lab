@@ -21,7 +21,27 @@ IMPORTANT:
 - Return strs[0] as the result
 */
 
-char* longestCommonPrefix(char** strs, int strsSize) {
-      // TODO: implement
+#include <stdio.h>
 
+char* longestCommonPrefix(char** strs, int strsSize) {
+    if (strsSize == 0) {
+        return "";
+    }
+
+    int prefixLen = 0;
+
+    while (strs[0][prefixLen] != '\0') {
+        char currentChar = strs[0][prefixLen];
+
+        for (int i = 1; i < strsSize; i++) {
+            if (strs[i][prefixLen] == '\0' || strs[i][prefixLen] != currentChar) {
+                strs[0][prefixLen] = '\0';
+                return strs[0];
+            }
+        }
+
+        prefixLen++;
+    }
+
+    return strs[0];
 }
