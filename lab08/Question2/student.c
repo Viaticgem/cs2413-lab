@@ -21,7 +21,30 @@ Note:
 - Do not use library substring search functions.
 */
 
-int strStr(char* haystack, char* needle) {
-    // TODO: implement
 
+int strStr(char* haystack, char* needle) {
+    int hayLen = strlen(haystack);
+    int needleLen = strlen(needle);
+
+    if (needleLen == 0) {
+        return 0;
+    }
+
+    if (needleLen > hayLen) {
+        return -1;
+    }
+
+    for (int i = 0; i <= hayLen - needleLen; i++) {
+        int j = 0;
+
+        while (j < needleLen && haystack[i + j] == needle[j]) {
+            j++;
+        }
+
+        if (j == needleLen) {
+            return i;
+        }
+    }
+
+    return -1;
 }
