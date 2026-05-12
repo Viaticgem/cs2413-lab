@@ -59,21 +59,88 @@ int isSorted(int arr[], int size) {
 Sort arr[left...right] using insertion sort.
 */
 void insertionSort(int arr[], int left, int right) {
-    // TODO: implement insertion sort for arr[left...right]
+    int i, j, key;
+
+    for (i = left + 1; i <= right; i++) {
+        key = arr[i];
+        j = i - 1;
+
+        while (j >= left && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+
+        arr[j + 1] = key;
+    }
 }
 
 /*
 Merge two sorted subarrays into one sorted subarray.
 */
 void merge(int arr[], int left, int mid, int right) {
-    // TODO: implement merge operation
+    int i, j, index;
+
+    int leftSize = mid - left + 1;
+    int rightSize = right - mid;
+
+    int leftArray[leftSize];
+    int rightArray[rightSize];
+
+    for (i = 0; i < leftSize; i++) {
+        leftArray[i] = arr[left + i];
+    }
+
+    for (j = 0; j < rightSize; j++) {
+        rightArray[j] = arr[mid + 1 + j];
+    }
+
+    i = 0;
+    j = 0;
+    index = left;
+
+    while (i < leftSize && j < rightSize) {
+        if (leftArray[i] <= rightArray[j]) {
+            arr[index] = leftArray[i];
+            i++;
+        } else {
+            arr[index] = rightArray[j];
+            j++;
+        }
+        index++;
+    }
+
+    while (i < leftSize) {
+        arr[index] = leftArray[i];
+        i++;
+        index++;
+    }
+
+    while (j < rightSize) {
+        arr[index] = rightArray[j];
+        j++;
+        index++;
+    }
 }
 
 /*
 Hybrid merge sort.
 */
 void hybridMergeSort(int arr[], int left, int right, int k) {
-    // TODO: implement hybrid merge sort
+    if (left < right) {
+        int size = right - left + 1;
+
+        if (size <= k) {
+            insertionSort(arr, left, right);
+            return;
+        }
+
+        int mid = left + (right - left) / 2;
+
+        hybridMergeSort(arr, left, mid, k);
+        hybridMergeSort(arr, mid + 1, right, k);
+
+        merge(arr, left, mid, right);
+    }
 }
 
 int main() {
